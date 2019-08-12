@@ -3,28 +3,36 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class ShopMap extends StatefulWidget {
+class MapSample extends StatefulWidget {
   @override
-  State<ShopMap> createState() => ShopMapState();
+  State<MapSample> createState() => MapSampleState();
 }
 
-class ShopMapState extends State<ShopMap> {
+class MapSampleState extends State<MapSample> {
   Completer<GoogleMapController> _controller = Completer();
 
   static final CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(37.42796133580664, -122.085749655962),
+    target: LatLng(17.974855, 102.630867),
     zoom: 14.4746,
   );
-
   static final CameraPosition _kLake = CameraPosition(
       bearing: 192.8334901395799,
-      target: LatLng(37.43296265331129, -122.08832357078792),
+      target: LatLng(17.963031, 102.606710),
       tilt: 59.440717697143555,
-      zoom: 19.151926040649414);
+      zoom: 19.65);
 
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
+      appBar: new AppBar(
+        title: Text("ສະຖານທີ່ແລກປ່ຽນເງີນ"),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () {},
+          )
+        ],
+      ),
       body: GoogleMap(
         mapType: MapType.hybrid,
         initialCameraPosition: _kGooglePlex,
@@ -34,8 +42,8 @@ class ShopMapState extends State<ShopMap> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: _goToTheLake,
-        label: Text('To the lake!'),
-        icon: Icon(Icons.directions_boat),
+        label: Text('ທະນາຄານ'),
+        icon: Icon(Icons.attach_money),
       ),
     );
   }

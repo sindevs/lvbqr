@@ -1,15 +1,16 @@
 import 'package:exchange/pages/mapshop.dart';
+import 'package:exchange/pages/showmap.dart';
 import 'package:exchange/services/showexchange.dart';
 import 'package:exchange/setup/createNewUser.dart';
-import 'package:exchange/setup/signin.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'exchange.dart';
-import './services/calExchange.dart' as calExchange;
+// import './services/calExchange.dart' as calExchange;
 import './services/history.dart' as history;
 import './services/TodayEX.dart' as todayExchange;
+import './services/usdRate.dart' as usd;
 
 class Home extends StatefulWidget {
   Home({Key key}) : super(key: key);
@@ -30,7 +31,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   String email2 = "mirinda.dev@gmail.com";
   String backupname;
   String backupemail;
-  
+
   void newPerSon() {
     this.setState(() {
       backup = user1;
@@ -102,6 +103,12 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    var children2 = <Widget>[
+      new todayExchange.TodayExchange(),
+      new usd.USDRATE(),
+      // new calExchange.CalExchange(),
+      new history.History(),
+    ];
     return new Scaffold(
         appBar: new AppBar(
           actions: <Widget>[
@@ -177,17 +184,15 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                   onTap: () {
                     Navigator.of(context).pop();
                     Navigator.of(context).push(new MaterialPageRoute(
-                        builder: (BuildContext centext) =>
-                            new ShowExchage()));
+                        builder: (BuildContext centext) => new ShowExchage()));
                   }),
-                  new ListTile(
+              new ListTile(
                   title: new Text("ແຜນທີ່"),
                   trailing: new Icon(Icons.map),
                   onTap: () {
                     Navigator.of(context).pop();
                     Navigator.of(context).push(new MaterialPageRoute(
-                        builder: (BuildContext centext) =>
-                            new ShopMap()));
+                        builder: (BuildContext centext) => new MapSample()));
                   }),
               new ListTile(
                   title: new Text("ເພີ່ມຜູ່ໃຊ້"),
@@ -199,12 +204,11 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                             new CreateNewUser()));
                   }),
               new ListTile(
-                  title: new Text("ຜູ່ໃຊ້ພາຍໃນລະບົບ"),
-                  trailing: new Icon(Icons.supervised_user_circle),
+                  title: new Text("ສະຖານທີ່ແລກປ່ຽນ"),
+                  trailing: new Icon(Icons.map),
                   onTap: () {
                     Navigator.of(context).pop();
-                    Navigator.of(context).pushNamed('/showUser');
-                    
+                    Navigator.of(context).pushNamed('/all_shop');
                   }),
               new Divider(),
               new ListTile(
@@ -217,11 +221,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
         ),
         body: new TabBarView(
           controller: controller,
-          children: <Widget>[
-            new todayExchange.TodayExchange(),
-            new calExchange.CalExchange(),
-            new history.History(),
-          ],
+          children: children2,
         ),
         bottomNavigationBar: new Material(
           color: Colors.deepOrangeAccent[700],

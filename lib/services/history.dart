@@ -9,8 +9,9 @@ class History extends StatefulWidget {
 class _HistoryState extends State<History> {
   @override
   Widget build(BuildContext context) {
-    return new Container(
-      child: new Center(
+      return Scaffold(
+        body: new Container(
+            child: new Center(
         child: new Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -21,6 +22,14 @@ class _HistoryState extends State<History> {
           ],
         ),
       ),
-    );
+        ),
+        floatingActionButton: FloatingActionButton(
+        onPressed: (){},
+        tooltip: 'Increment',
+        child: Icon(Icons.add),
+        backgroundColor: Colors.redAccent,
+      )
+      );
+      
   }
 }
