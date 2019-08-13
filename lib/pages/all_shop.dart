@@ -1,6 +1,9 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:location/location.dart';
+import 'package:flutter/services.dart';
 
 class ShopExchange extends StatefulWidget {
   ShopExchange({Key key}) : super(key: key);
@@ -10,6 +13,13 @@ class ShopExchange extends StatefulWidget {
 
 class _ShopExchangeState extends State<ShopExchange> {
   Completer<GoogleMapController> _controller = Completer();
+
+  // GoogleMapController mapController;
+
+  //userlocaiton
+  LocationData currentLocation;
+
+  var clients = [];
 
   var _currentLocation = 1;
   static final CameraPosition vientaine =
@@ -28,8 +38,56 @@ class _ShopExchangeState extends State<ShopExchange> {
     controller.animateCamera(CameraUpdate.newCameraPosition(pos));
   }
 
+  static Marker _markerLct(String id, String name, double rat, lng) {
+    return Marker(
+        markerId: MarkerId(id),
+        position: LatLng(rat, lng),
+        infoWindow: InfoWindow(title: name));
+  }
+
+  //getcurrent location
+  Future<LocationData> getCurrentLocation() async {
+    Location location = Location();
+    try {
+      return await location.getLocation();
+    } on PlatformException catch (e) {
+      if (e.code == 'PERMISSION_DENIED') {
+        // Permission denied
+      }
+      return null;
+    }
+  }
+
+  //found mylocation
+  Future _goToMe() async {
+    final GoogleMapController controller = await _controller.future;
+    currentLocation = await getCurrentLocation();
+    controller.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
+      target: LatLng(currentLocation.latitude, currentLocation.longitude),
+      zoom: 16,
+    )));
+  }
+
   @override
   Widget build(BuildContext context) {
+    var googleMap = new GoogleMap(
+      mapType: MapType.hybrid,
+      // myLocationEnabled: true,
+      initialCameraPosition: vientaine,
+      onMapCreated: (GoogleMapController controller) {
+        _controller.complete(controller);
+      },
+      markers: {
+        _markerLct(
+            "1", "ທະນາຄານການຄ້າຕ່າງປະເທດລາວສຳນັກງານໃຫ່ຍ", 17.96305, 102.606788),
+        _markerLct("2", "ທະນາຄານພັດທະນາລາວສຳນັກງານໃຫ່ຍ", 17.967377, 102.599260),
+        _markerLct("3", "ທະນາຄານລາວ-ຫວຽດສຳນັກງານໃຫ່ຍ", 17.967401, 102.615851),
+        _markerLct("6", "ທະນາຄານເອຊີເລດາລາວ", 17.965670, 102.616643),
+        _markerLct("4", "ທະນາຄານພົງສະຫວັນ", 17.967917, 102.605001),
+        _markerLct(
+            "5", "ທະນາຄານອຸດສະຫະກຳ ແລະ ການຄ້າຈິນ", 17.976351, 102.625100),
+      },
+    );
     return new Scaffold(
       appBar: new AppBar(
         title: Text("ສະຖານທີ່ແລກປ່ຽນເງິນ"),
@@ -40,12 +98,11 @@ class _ShopExchangeState extends State<ShopExchange> {
           )
         ],
       ),
-      body: new GoogleMap(
-        mapType: MapType.hybrid,
-        initialCameraPosition: vientaine,
-        onMapCreated: (GoogleMapController controller) {
-          _controller.complete(controller);
-        },
+      body: googleMap,
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: _goToMe,
+        label: Text("ທີ່ຢູ່ຂອງຂ້ອຍ"),
+        icon: Icon(Icons.near_me),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[

@@ -170,29 +170,12 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                     Navigator.of(context).pop();
                   }),
               new ListTile(
-                  title: new Text("ອັດຕາການແລກປ່ຽນ"),
-                  trailing: new Icon(Icons.attach_money),
-                  onTap: () {
-                    Navigator.of(context).pop();
-                    Navigator.of(context).push(new MaterialPageRoute(
-                        builder: (BuildContext centext) =>
-                            new Exchange("ອັດຕາການແລກປ່ຽນ")));
-                  }),
-              new ListTile(
                   title: new Text("ການຕັ້ງຄ່າ"),
                   trailing: new Icon(Icons.settings),
                   onTap: () {
                     Navigator.of(context).pop();
                     Navigator.of(context).push(new MaterialPageRoute(
                         builder: (BuildContext centext) => new ShowExchage()));
-                  }),
-              new ListTile(
-                  title: new Text("ແຜນທີ່"),
-                  trailing: new Icon(Icons.map),
-                  onTap: () {
-                    Navigator.of(context).pop();
-                    Navigator.of(context).push(new MaterialPageRoute(
-                        builder: (BuildContext centext) => new MapSample()));
                   }),
               new ListTile(
                   title: new Text("ເພີ່ມຜູ່ໃຊ້"),

@@ -28,7 +28,13 @@ class _MyLoginPageState extends State<MyLoginPage> {
             .signInWithEmailAndPassword(
                 email: _emailValue, password: _passwordValue);
         s = true;
-        Navigator.of(context).pushNamed('/Homepage');
+        // Navigator.of(context).pushNamed('/Homepage');
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => Home(),
+          ),
+        );
       } catch (e) {
         s = true;
         print(e.message);
@@ -156,7 +162,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
                             or(),
                             // buildButtonGoogle(context),
                             // buildButtonFacebook(context),
-                            
+
                             resetPassword(context),
                           ],
                         ),
@@ -270,8 +276,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 14, color: Colors.white)),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16),
-            color: Colors.red),
+            borderRadius: BorderRadius.circular(16), color: Colors.red),
         margin: EdgeInsets.only(top: 1),
         padding: EdgeInsets.all(12),
       ),
@@ -361,4 +366,10 @@ class _MyLoginPageState extends State<MyLoginPage> {
           context, MaterialPageRoute(builder: (context) => Home()));
     }
   }
+}
+
+class UserData {
+  final String email;
+
+  UserData(this.email);
 }
