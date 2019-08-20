@@ -15,21 +15,6 @@ class _CreateNewUserState extends State<CreateNewUser> {
   String _passwordValue = '';
   String _userName = '';
   num _age = 0;
-  // void submit_form(String email, String password) {
-  //   if (_formkey.currentState.validate()) {
-  //     _formkey.currentState.save();
-  //     print(email);
-  //     print(password);
-  //     final Map<String, dynamic> userData = {
-  //       'email': email,
-  //       'password': password,
-  //     };
-  //     http.post('https://exchange-330dd.firebaseio.com/newusers.json',
-  //         body: json.encode(userData));
-  //     Navigator.pop(context);
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -146,6 +131,7 @@ class _CreateNewUserState extends State<CreateNewUser> {
       };
       http.post('https://exchange-330dd.firebaseio.com/newusers.json',
           body: json.encode(userData));
+      print(userData);
       Navigator.pop(context);
     }
   }
