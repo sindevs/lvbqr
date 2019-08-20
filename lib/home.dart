@@ -1,13 +1,9 @@
-import 'package:exchange/pages/mapshop.dart';
-import 'package:exchange/pages/showmap.dart';
 import 'package:exchange/services/showexchange.dart';
 import 'package:exchange/setup/createNewUser.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'exchange.dart';
-// import './services/calExchange.dart' as calExchange;
 import './services/history.dart' as history;
 import './services/TodayEX.dart' as todayExchange;
 import './services/usdRate.dart' as usd;

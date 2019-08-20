@@ -3,6 +3,7 @@ import 'package:exchange/pages/all_shop.dart';
 import 'package:exchange/pages/mapshop.dart';
 import 'package:exchange/pages/showmap.dart';
 import 'package:exchange/pages/user.dart';
+import 'package:exchange/services/addList.dart';
 import 'package:exchange/services/showexchange.dart';
 import 'package:exchange/setup/createNewUser.dart';
 import 'package:exchange/setup/loginGoogle.dart';
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
         '/resetpassword': (BuildContext context) => new ResetPassword(),
         '/map': (BuildContext context) => new ShopMap(),
         '/all_shop': (BuildContext context) => new ShopExchange(),
+        '/addlist': (BuildContext context) => new AddList()
       },
     );
   }
